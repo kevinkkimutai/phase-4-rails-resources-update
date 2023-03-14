@@ -22,10 +22,23 @@ class BirdsController < ApplicationController
     end
   end
 
+  # update
+  def update
+
+    bird = Bird.find_by(id: params[:id])
+    if Bird
+      bird.update(bird_params)
+      render json: bird
+    else
+      render json: { error: "bird not found" }, status: :not_found
+    end
+
+    end
+
   private
 
   def bird_params
-    params.permit(:name, :species)
+    params.permit(:name, :species, :likes)
   end
 
 end
